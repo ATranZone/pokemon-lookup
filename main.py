@@ -1,14 +1,31 @@
 import requests
 
 
+def main():
+    prompt()
+
+
+def prompt():
+    while True:
+        exit_conditional = input("Do you want to look up a Pokemon?\n")
+        if exit_conditional.lower() == "yes":
+            pokemon_input = input("What Pokemon do you want to look up?\n")
+            get_pokemon_data(pokemon_input)
+        elif exit_conditional.lower() == "no":
+            break
+        else:
+            print("You didn't type yes or no.")
+            continue
+
+
 def print_pokemon_data(pokemon_info):
     name = pokemon_info["name"]
     poke_type = pokemon_info["types"]
     moves_set = pokemon_info["learnable moves"]
     print_moves = ""
 
-    if len(poke_type) > 2:
-        print_type = (poke_type[0] + "and" + poke_type[1] + "type.")
+    if len(poke_type) == 2:
+        print_type = (poke_type[0] + " and " + poke_type[1] + " type")
     else:
         print_type = (poke_type[0] + " type");
 
@@ -18,7 +35,7 @@ def print_pokemon_data(pokemon_info):
         else:
             print_moves = print_moves + " " + x + ","
 
-    print(f"{name.capitalize()} is a " + print_type + f" Pokemon. \nIt can learn these moves:{print_moves}")
+    print(f"\n{name.capitalize()} is a " + print_type + f" Pokemon. \nIt can learn these moves:{print_moves}\n")
 
 
 def get_pokemon_data(pokemon_name):
@@ -37,12 +54,5 @@ def get_pokemon_data(pokemon_name):
         print("Either that name does not exist or something went wrong!")
 
 
-def main():
-    pokemon_input = input("What Pokemon do you want to look up?\n")
-    get_pokemon_data(pokemon_input)
-
-
 if __name__ == "__main__":
     main()
-
-
